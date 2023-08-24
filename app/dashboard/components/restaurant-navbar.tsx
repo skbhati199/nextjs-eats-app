@@ -1,5 +1,5 @@
 "use client";
-import ProjectMobileSidebar from "./restaurant-mobile-sidebar";
+import ResturantMobileSidebar from "./restaurant-mobile-sidebar";
 import { Button } from "@/components/ui/button";
 import { BellIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { ModeToggle } from "@/components/theme/mode-toggle";
 
-const ProjectNavbar = () => {
+const ResturantNavbar = () => {
   const pathName = usePathname();
   const [currentTab, setCurrentTab] = useState("");
   useEffect(() => {
@@ -22,7 +22,7 @@ const ProjectNavbar = () => {
     bg-secondary h-16"
     >
       <div className="flex items-center">
-        <ProjectMobileSidebar />
+        <ResturantMobileSidebar />
         <div className="hidden lg:flex">
           <h4 className="sm font-semibold pr-2">chargingev.app</h4>
           <div className="text-zinc-700">/</div>
@@ -45,4 +45,4 @@ const ProjectNavbar = () => {
   );
 };
 
-export default ProjectNavbar;
+export default ResturantNavbar;

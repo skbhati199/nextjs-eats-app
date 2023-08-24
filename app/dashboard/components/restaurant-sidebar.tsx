@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { SignOutButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import SidebarItem from "./restaurant-sidebar-item";
+import { Restaurant } from "@prisma/client";
 
 const montserrat = Montserrat({
   weight: "600",
@@ -27,7 +28,7 @@ export interface SidebarItemProps {
 
 const staticRoutes: SidebarItemProps[] = [
   {
-    title: "All Project",
+    title: "All Resturant",
     subMenu: [
       {
         label: "All",
@@ -67,16 +68,12 @@ const staticRoutes: SidebarItemProps[] = [
   },
 ];
 
-export interface ResturantItem {
-  id: string;
-  displayName: string;
-}
 
 export interface ResturantProps {
-  data?: ResturantItem[];
+  data?: Restaurant[];
 }
 
-const ProjectSidebar = ({ data }: ResturantProps) => {
+const ResturantSidebar = ({ data }: ResturantProps) => {
   const pathname = usePathname();
 
   const [mounted, setMounted] = useState(false);
@@ -95,8 +92,8 @@ const ProjectSidebar = ({ data }: ResturantProps) => {
             ...(route.subMenu || []),
             ...(data?.map((value) => {
               return {
-                href: `/dashboard/org/${value.id}`,
-                label: value.displayName,
+                href: `/dashboard/${value.id}`,
+                label: value.name,
               };
             }) || []),
           ],
@@ -115,7 +112,7 @@ const ProjectSidebar = ({ data }: ResturantProps) => {
     <div className="space-y-2 py-2 flex flex-col h-full dark:bg-[#111827] text-white dark:text-[#111827] bg-white">
       <div className="px-2 py-2 flex-1">
         <Link
-          href={`/dashboard/projects`}
+          href={`/dashboard/safasfaf}`}
           className="flex items-center pl-3 mb-14"
         >
           <h1
@@ -146,4 +143,4 @@ const ProjectSidebar = ({ data }: ResturantProps) => {
   );
 };
 
-export default ProjectSidebar;
+export default ResturantSidebar;

@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import ProjectSidebar from "./restaurant-sidebar";
+import ResturantSidebar from "./restaurant-sidebar";
 
 
 
-const ProjectMobileSidebar = () => {
+const ResturantMobileSidebar = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -26,10 +26,10 @@ const ProjectMobileSidebar = () => {
         </Button>
       </SheetTrigger>
       <SheetContent side={"left"} className="p-0">
-        <ProjectSidebar />
+        <ResturantSidebar />
       </SheetContent>
     </Sheet>
   );
 };
 
-export default ProjectMobileSidebar;
+export default ResturantMobileSidebar;
