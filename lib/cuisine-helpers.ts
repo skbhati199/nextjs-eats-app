@@ -1,14 +1,14 @@
 import prismadb from "./prismadb";
 
-import { withAccelerate } from '@prisma/extension-accelerate';
+// import { withAccelerate } from '@prisma/extension-accelerate';
 
-const prismaWithAccelerate = prismadb.$extends(withAccelerate())
+// const prismadb = prismadb.$extends(withAccelerate())
 
 // Create a new cuisine
 async function createCusine(
   name: string,
 ) {
-  return prismaWithAccelerate.cuisine.create({
+  return prismadb.cuisine.create({
     data: {
       name,
     },
@@ -20,7 +20,7 @@ async function updateCusine(
   id: string,
   name: string,
 ) {
-  return prismaWithAccelerate.cuisine.update({
+  return prismadb.cuisine.update({
     where: {
       id: id,
     },
@@ -31,17 +31,17 @@ async function updateCusine(
 }
 
 async function getByIdCusine(id: string) {
-  return prismaWithAccelerate.cuisine.findUnique({ where: { id: id } });
+  return prismadb.cuisine.findUnique({ where: { id: id } });
 }
 
 
 // Fetch all restaurants
 async function getAllCusines() {
-  return prismaWithAccelerate.cuisine.findMany();
+  return prismadb.cuisine.findMany();
 }
 
 async function deleteByIdCusine(id: string) {
-  return prismaWithAccelerate.cuisine.delete({ where: { id: id } });
+  return prismadb.cuisine.delete({ where: { id: id } });
 }
 
 export {

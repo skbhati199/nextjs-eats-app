@@ -16,7 +16,7 @@ export default async function DashboardLayout({
     redirect("/sign-in");
   }
 
-  const resturant = await prismadb.restaurant.findMany({
+  const resturants = await prismadb.restaurant.findMany({
     where: {
       ownerId: userId,
     }
@@ -24,7 +24,7 @@ export default async function DashboardLayout({
   return (
     <div className="h-full relative">
       <div className="hidden h-full md:flex md:w-44 md:flex-col md:fixed md:inset-y-0 bg-gray-900">
-        <ResturantSidebar data={resturant || []} />
+        <ResturantSidebar data={resturants || []} />
       </div>
 
       <main className="md:pl-44 pb-4">

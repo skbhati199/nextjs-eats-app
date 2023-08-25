@@ -1,17 +1,18 @@
+import { Restaurant } from "@prisma/client";
 import prismadb from "./prismadb";
 
-import { withAccelerate } from '@prisma/extension-accelerate';
+// import { withAccelerate } from '@prisma/extension-accelerate';
 
-const prismaWithAccelerate = prismadb.$extends(withAccelerate())
+// const prismaWithAccelerate = prismadb.$extends(withAccelerate())
 
 // Create a new restaurant
-async function createRestaurant(
+export async function createRestaurant(
   name: string,
   address:string,
   cuisineId: string,
   ownerId: string
 ) {
-  return prismaWithAccelerate.restaurant.create({
+  return await prismadb.restaurant.create({
     data: {
       name,
       address,
@@ -22,14 +23,14 @@ async function createRestaurant(
 }
 
 // Create a new restaurant
-async function updateRestaurant(
+export async function updateRestaurant(
   id: string,
   name: string,
   address:string,
   cuisineId: string,
   ownerId: string
 ) {
-  return prismaWithAccelerate.restaurant.update({
+  return await prismadb.restaurant.update({
     where: {
       id: id,
     },
@@ -42,12 +43,12 @@ async function updateRestaurant(
   });
 }
 
-async function getByIdRestaurant(id: string) {
-  return prismaWithAccelerate.restaurant.findUnique({ where: { id: id } });
+export async function getByIdRestaurant(id: string) {
+  return await prismadb.restaurant.findUnique({ where: { id: id } });
 }
 
-async function getByOwnerIdRestaurant(ownerId: string) {
-  return prismaWithAccelerate.restaurant.findMany({
+export async function getByOwnerIdRestaurant(ownerId: string) {
+  return await prismadb.restaurant.findMany({
     where: { ownerId: ownerId },
     include: {
       menuItems: true,
@@ -57,19 +58,24 @@ async function getByOwnerIdRestaurant(ownerId: string) {
 }
 
 // Fetch all restaurants
-async function getAllRestaurants() {
-  return prismaWithAccelerate.restaurant.findMany();
+export async function getAllRestaurants() {
+  return await  prismadb.restaurant.findMany();
 }
 
-async function deleteByIdRestaurant(id: string) {
-  return prismaWithAccelerate.restaurant.delete({ where: { id: id } });
+export async function deleteByIdRestaurant(id: string) {
+  return await  prismadb.restaurant.delete({ where: { id: id } });
 }
 
-export {
-  getAllRestaurants,
-  getByOwnerIdRestaurant,
-  getByIdRestaurant,
-  updateRestaurant,
-  createRestaurant,
-  deleteByIdRestaurant,
-};
+export async function getRestaurantsByOwnerId(ownerId:string) {
+  return await prismadb.restaurant.findMany({});
+}
+
+// export {
+//   getAllRestaurants,
+//   getByOwnerIdRestaurant,
+//   getByIdRestaurant,
+//   updateRestaurant,
+//   createRestaurant,
+//   deleteByIdRestaurant,
+//   getRestaurantsByOwnerId,
+// };
