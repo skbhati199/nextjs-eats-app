@@ -29,19 +29,13 @@ export const BarChart = () => {
     gradient.addColorStop(0.65, colors.purple.quarter);
     gradient.addColorStop(1, colors.purple.zero);
 
-    const weight = [60.0, 60.2, 59.1, 61.4, 59.9, 60.2, 59.8, 58.6, 59.6, 59.2];
+    const weight = [60.0, 60.2, 59.1, 61.4];
 
     const labels = [
       "Week 1",
       "Week 2",
       "Week 3",
       "Week 4",
-      "Week 5",
-      "Week 6",
-      "Week 7",
-      "Week 8",
-      "Week 9",
-      "Week 10",
     ];
     const data = {
       labels: labels,
@@ -71,8 +65,8 @@ export const BarChart = () => {
   });
 
   return (
-    <div className="h-full p-2">
-      <canvas id="myChart" ref={canvasEl} height="auto" />
+    <div className="h-full w-full p-2 ">
+      <canvas id="myChart" ref={canvasEl} width={"100%"} />
     </div>
   );
 };

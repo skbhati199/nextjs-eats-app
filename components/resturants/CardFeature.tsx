@@ -1,10 +1,11 @@
 import React from 'react'
 import Card from "@/components/resturants/card";
 import { BoxesIcon, DollarSign, GrapeIcon, SubscriptIcon } from "lucide-react";
+import { cn } from '@/lib/utils';
 
-export default function CardFeature() {
+export default function CardFeature({ className }: { className: string }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className={cn(`grid gap-4 md:grid-cols-2 lg:grid-cols-4`, className)}>
       <Card
         title="Total Revenue"
         currrentRevenue="$45,231.89"
