@@ -1,7 +1,25 @@
 import prismadb from "./prismadb";
 
 // Create a new User
+export async function getUser(userId: string) {
+  const existingUser = await prismadb.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (existingUser) {
+    throw new Error(`User with id ${userId} already exist.`);
+  }
+
+  return await prismadb.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+}
+
+// Create a new User
 export async function createUser(
+  userId: string,
   email: string,
   name: string,
   password?: string
@@ -11,11 +29,12 @@ export async function createUser(
   });
 
   if (existingUser) {
-    throw new Error(`User with id ${email} already exist.`);
+    return existingUser;
   }
 
   return await prismadb.user.create({
     data: {
+      id: userId,
       email: email,
       name: name,
       password: password ?? "",
@@ -51,21 +70,18 @@ export async function updateUser(
 }
 
 // Update a new User
-export async function deleteUser(
-    userId: string,
-  ) {
-    const existingUser = await prismadb.user.findUnique({
-      where: { id: userId },
-    });
-  
-    if (!existingUser) {
-      throw new Error(`User with id ${userId} does not exist.`);
-    }
-  
-    return await prismadb.user.delete({
-      where: {
-        id: userId,
-      }
-    });
+export async function deleteUser(userId: string) {
+  const existingUser = await prismadb.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!existingUser) {
+    throw new Error(`User with id ${userId} does not exist.`);
   }
-  
+
+  return await prismadb.user.delete({
+    where: {
+      id: userId,
+    },
+  });
+}

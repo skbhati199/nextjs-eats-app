@@ -33,7 +33,7 @@ export default function CuisineForm() {
     values: z.infer<typeof cuisineDetailsSchema>
   ) => {
     try {
-      const response = await axios.post("/api/v1/cuisines", {
+      const response = await axios.post("/api/cuisines", {
         body: values,
       });
       if (response.data) {

@@ -42,7 +42,7 @@ function CuisineFilter({ className, onFilterChange }: CuisineSwitcherProps) {
     console.log("loading ")
     async function fetchCuisines() {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/cuisines`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_APP_URL}/api/cuisines`);
         console.log(response.data)
         setCuisines(response.data);
       } catch (error) {

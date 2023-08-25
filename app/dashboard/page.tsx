@@ -4,16 +4,16 @@ import { Separator } from "@/components/ui/separator";
 import { Building2 } from "lucide-react";
 import React from "react";
 import PageHeader from "./components/page-header";
+import axios from "axios";
+import { auth } from "@clerk/nextjs";
 
 export default async function DashBoardPage() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}/api/v1/getRestaurantsByOwnerId`,
-    {
-      next: { revalidate: 0 },
-    }
-  );
+  const { userId } = auth();
+  console.log(userId);
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/getRestaurantsByOwnerId/${userId}`,);
 
-  const results = await response.json();
+  const results = await response.data;
 
   console.log(results);
 

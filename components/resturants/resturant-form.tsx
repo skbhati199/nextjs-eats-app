@@ -39,7 +39,7 @@ export default function ResturantForm() {
     values: z.infer<typeof resturantDetailsSchema>
   ) => {
     try {
-      const response = await axios.post("/api/v1/restaurant", {
+      const response = await axios.post("/api/restaurant", {
         body: values,
       });
       if (response.data) {
@@ -47,6 +47,7 @@ export default function ResturantForm() {
         toast({
           title: `Restaurant ${response.data.name} successfully created.`,
         });
+        modal.onClose();
         router.refresh();
       }
     } catch (error: any) {

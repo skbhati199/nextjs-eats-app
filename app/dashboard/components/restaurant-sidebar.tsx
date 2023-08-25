@@ -92,7 +92,7 @@ const ResturantSidebar = ({ data }: ResturantProps) => {
             ...(route.subMenu || []),
             ...(data?.map((value) => {
               return {
-                href: `/dashboard/${value.id}`,
+                href: `/resturant/${value.id}`,
                 label: value.name,
               };
             }) || []),

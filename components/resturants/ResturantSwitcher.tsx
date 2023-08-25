@@ -34,27 +34,27 @@ export default function ResturantSwitcher({
   className,
   items = [],
 }: ResturantSwitcherProps) {
-  const orgainzationModal = useModal();
+  const restaurantModal = useModal();
   const params = useParams();
   const router = useRouter();
 
   const formattedItems = items.map((item) => ({
-    displayName: item.displayName,
+    name: item.name,
     id: item.id,
   }));
 
   const currentResturant = formattedItems.find(
-    (item) => item.id === params.orgId
+    (item) => item.id === params.restaurantId
   );
 
   const [open, setOpen] = React.useState(false);
 
-  const onResturantSelect = (orgainzation: {
+  const onResturantSelect = (restaurant: {
     id: string;
-    displayName: string;
+    name: string;
   }) => {
     setOpen(false);
-    router.push(`/dashboard/org/${orgainzation.id}`);
+    router.push(`/resturant/${restaurant.id}`);
   };
 
   return (
@@ -65,32 +65,32 @@ export default function ResturantSwitcher({
           size="sm"
           role="combobox"
           aria-expanded={open}
-          aria-label="Select a orgainzation"
+          aria-label="Select a restaurant"
           className={cn("md:w-48 lg:w-64 w-32 h-10 justify-between", className)}
         >
           <Building2 className="mr-2 h-4 w-4" />
-          {currentResturant?.displayName}
+          {currentResturant?.name}
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="md:w-48 lg:w-64 w-32 p-0">
         <Command>
           <CommandList>
-            <CommandInput placeholder="Search orgainzation..." />
-            <CommandEmpty>No orgainzation found.</CommandEmpty>
+            <CommandInput placeholder="Search restaurant..." />
+            <CommandEmpty>No restaurant found.</CommandEmpty>
             <CommandGroup heading="Resturants">
-              {formattedItems.map((orgainzation) => (
+              {formattedItems.map((restaurant) => (
                 <CommandItem
-                  key={orgainzation.id}
-                  onSelect={() => onResturantSelect(orgainzation)}
+                  key={restaurant.id}
+                  onSelect={() => onResturantSelect(restaurant)}
                   className="text-sm"
                 >
                   <Building2 className="mr-2 h-4 w-4" />
-                  {orgainzation.displayName}
+                  {restaurant.name}
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",
-                      currentResturant?.id === orgainzation.id
+                      currentResturant?.id === restaurant.id
                         ? "opacity-100"
                         : "opacity-0"
                     )}
@@ -105,7 +105,7 @@ export default function ResturantSwitcher({
               <CommandItem
                 onSelect={() => {
                   setOpen(false);
-                  orgainzationModal.onOpen();
+                  restaurantModal.onOpen();
                 }}
               >
                 <PlusCircle className="mr-2 h-5 w-5" />
