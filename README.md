@@ -1,2 +1,2 @@
 # nextjs-eats-app
-create a project resturants app
+create a project restaurants app

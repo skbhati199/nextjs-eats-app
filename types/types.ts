@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const resturantDetailsSchema = z.object({
+export const restaurantDetailsSchema = z.object({
+  id: z.string().optional(),
   name: z.string(),
   address: z.string(),
   ownerId: z.string().optional(),

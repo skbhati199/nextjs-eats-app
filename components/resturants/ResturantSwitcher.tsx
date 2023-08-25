@@ -54,7 +54,7 @@ export default function ResturantSwitcher({
     name: string;
   }) => {
     setOpen(false);
-    router.push(`/resturant/${restaurant.id}`);
+    router.push(`/restaurant/${restaurant.id}`);
   };
 
   return (

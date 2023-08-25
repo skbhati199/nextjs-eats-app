@@ -7,57 +7,75 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
 
-import { resturantDetailsSchema } from "@/types/types";
+import { restaurantDetailsSchema } from "@/types/types";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import EditPrfilePic from "@/components/resturants/edit-avator";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
 import { toast } from "@/components/ui/use-toast";
 import CuisineFilter from "../cuisine/CuisineFilter";
-import { Cuisine } from "@prisma/client";
+import { Cuisine, Restaurant } from "@prisma/client";
+import EditPrfilePic from "@/components/resturants/edit-avator";
 
-export default function ResturantForm() {
+export default function ResturantForm({
+  isEdit = false,
+  data,
+}: {
+  isEdit?: boolean;
+  data?: Restaurant;
+}) {
   const router = useRouter();
   const modal = useModal();
   const { userId } = useAuth();
   if (!userId) {
     redirect("/sign-in");
   }
-  const form = useForm<z.infer<typeof resturantDetailsSchema>>({
-    resolver: zodResolver(resturantDetailsSchema),
+  const form = useForm<z.infer<typeof restaurantDetailsSchema>>({
+    resolver: zodResolver(restaurantDetailsSchema),
     defaultValues: {
-      name: "",
-      address: "",
+      id: isEdit ? data?.id : undefined,
+      name: isEdit ? data?.name : "",
+      address: isEdit ? data?.address : "",
       ownerId: userId ?? "",
-      cuisineId: "",
+      cuisineId: isEdit ? data?.cuisineId ?? "" : "",
     },
   });
   const isLoading = form.formState.isSubmitting;
   const onSubmitResturantDetails = async (
-    values: z.infer<typeof resturantDetailsSchema>
+    values: z.infer<typeof restaurantDetailsSchema>
   ) => {
     try {
-      const response = await axios.post("/api/restaurant", {
-        body: values,
-      });
+      const response = isEdit
+        ? await axios.patch("/api/restaurant", {
+            body: values,
+          })
+        : await axios.post("/api/restaurant", {
+            body: values,
+          });
       if (response.data) {
         modal.setRestaurant({ ...response.data });
         toast({
-          title: `Restaurant ${response.data.name} successfully created.`,
+          title: `Restaurant ${response.data.name} successfully ${
+            isEdit ? "updated" : "created"
+          }.`,
         });
-        modal.onClose();
-        router.refresh();
+        if (isEdit) {
+          router.push(`/restaurant/${response.data.id}/`)
+        } else {
+          modal.onClose();
+          router.refresh();
+        }
       }
     } catch (error: any) {
+      console.error(error);
       toast({
         title: "Something went wrong",
       });
     }
   };
 
-  const onFilterChange = async (selectedValue:Cuisine) => {
+  const onFilterChange = async (selectedValue: Cuisine) => {
     try {
       form.setValue("cuisineId", selectedValue.id);
     } catch (error) {
@@ -122,7 +140,10 @@ export default function ResturantForm() {
 
         <div className="flex flex-col justify-start items-start">
           <h2>Select Cuisine</h2>
-          <CuisineFilter className="max-w-4xl" onFilterChange={onFilterChange} />
+          <CuisineFilter
+            className="max-w-4xl"
+            onFilterChange={onFilterChange}
+          />
         </div>
         <Button
           type="submit"

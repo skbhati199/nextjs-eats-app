@@ -7,7 +7,7 @@ import {
   DialogHeader,
 } from "../ui/dialog";
 import { useModal } from "@/hooks/use-modal";
-import ResturantForm from "./resturant-form";
+import ResturantForm from "./restaurant-form";
 
 
 

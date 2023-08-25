@@ -5,6 +5,7 @@ import {
   Boxes,
   Building2,
   Cable,
+  FolderOpenDot,
   ImageIcon,
   LayoutDashboard,
   LayoutDashboardIcon,
@@ -15,6 +16,7 @@ import {
   MessageSquare,
   PlugIcon,
   Settings,
+  ViewIcon,
 } from "lucide-react";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
@@ -37,8 +39,32 @@ const Sidebar = ({ restaurantId }: { restaurantId: string }) => {
     {
       label: "Dashboard",
       icon: LayoutDashboardIcon,
-      href: `/dashboard/${restaurantId}`,
+      href: `/restaurant/${restaurantId}`,
       color: "text-yellow-500",
+    },
+    {
+      label: "Resturant Details",
+      icon: ViewIcon,
+      href: `/restaurant/${restaurantId}/view`,
+      color: "text-pink-500",
+    },
+    {
+      label: "Menus",
+      icon: FolderOpenDot,
+      href: `/restaurant/${restaurantId}/menus`,
+      color: "text-green-500",
+    },
+    {
+      label: "Orders",
+      icon: FolderOpenDot,
+      href: `/restaurant/${restaurantId}/orders`,
+      color: "text-blue-500",
+    },
+    {
+      label: "Order Tracking",
+      icon: FolderOpenDot,
+      href: `/restaurant/${restaurantId}/tracking`,
+      color: "text-red-500",
     },
   ];
 
