@@ -26,6 +26,7 @@ export async function POST(req: NextRequest) {
     const res = await createRestaurant(name, address, cuisineId, userId);
     return NextResponse.json(res, { status: 201 });
   } catch (error) {
+    console.error(error);
     return new NextResponse("ERROR_CREATE_Restaurant", { status: 503 });
   }
 }

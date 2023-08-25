@@ -34,10 +34,15 @@ async function getByIdCusine(id: string) {
   return prismadb.cuisine.findUnique({ where: { id: id } });
 }
 
+async function getByNameCusine(name: string) {
+  return prismadb.cuisine.findUnique({ where: { name: name } });
+}
+
+
 
 // Fetch all restaurants
 async function getAllCusines() {
-  return prismadb.cuisine.findMany();
+  return prismadb.cuisine.findMany({});
 }
 
 async function deleteByIdCusine(id: string) {
@@ -47,6 +52,7 @@ async function deleteByIdCusine(id: string) {
 export {
   getAllCusines,
   getByIdCusine,
+  getByNameCusine,
   updateCusine,
   createCusine,
   deleteByIdCusine,

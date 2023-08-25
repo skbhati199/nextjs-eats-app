@@ -24,7 +24,7 @@ const ResturantNavbar = () => {
       <div className="flex items-center">
         <ResturantMobileSidebar />
         <div className="hidden lg:flex">
-          <h4 className="sm font-semibold pr-2">chargingev.app</h4>
+          <h4 className="sm font-semibold pr-2">nextjs-eats-app</h4>
           <div className="text-zinc-700">/</div>
           <div className="pl-2 text-gray-400">{currentTab}</div>
         </div>

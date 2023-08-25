@@ -1,11 +1,14 @@
 import { z } from "zod";
 
-// export const businessDetailsSchema = z.object({
-//   displayName: z.string(),
-//   companyName: z.string(),
-//   businessPic: z.string().optional(),
-//   businessCover: z.string().optional(),
-// });
+export const resturantDetailsSchema = z.object({
+  name: z.string(),
+  address: z.string(),
+  ownerId: z.string().optional(),
+  cuisineId: z.string().optional(),
+});
+export const cuisineDetailsSchema = z.object({
+  name: z.string(),
+});
 
 // export const bussinessAddressSchema = z.object({
 //   address: z.string().optional(),
@@ -65,9 +68,16 @@ import { z } from "zod";
 //   profilePic: z.string().optional(),
 // });
 
-// export interface ResturantItemType {
-//   id: string;
-//   displayName: string;
-//   address: string;
-//   isActive: boolean;
-// }
+export interface ResturantModel {
+  id: "",
+  name: "",
+  address: "",
+  cuisineId: "",
+  ownerId: "",
+}
+
+
+export interface CuisineModel {
+  id: "",
+  name: "",
+}

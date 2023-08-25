@@ -1,17 +1,18 @@
-import { Restaurant } from "@prisma/client";
+import { ResturantModel } from "@/types/types";
 import { create } from "zustand";
 
-const intialData: Restaurant = {
+const intialData: ResturantModel = {
   id: "",
   name: "",
-  cuisine: "",
-  ownerId: ""
+  address: "",
+  cuisineId: "",
+  ownerId: "",
 }
 
 interface useModalStore {
   isOpen: boolean;
-  restaurant: Restaurant;
-  setRestaurant: (restaurant: Restaurant) => void;
+  restaurant: ResturantModel;
+  setRestaurant: (restaurant: ResturantModel) => void;
   onOpen: () => void;
   onClose: () => void;
 }

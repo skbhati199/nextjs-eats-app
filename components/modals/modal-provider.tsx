@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ResturantModal from "@/components/modals/resturant-modal";
+import ResturantModal from "@/components/resturants/resturant-modal";
+import CuisineModal from "../cuisine/cuisine-modal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -16,6 +17,7 @@ export const ModalProvider = () => {
 
   return (
     <>
+      <CuisineModal />
       <ResturantModal />
     </>
   );

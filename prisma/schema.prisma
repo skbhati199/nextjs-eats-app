@@ -17,23 +17,27 @@ model User {
   name        String
   restaurants Restaurant[]
   review      Review[]
+
+  @@index([id])
 }
 
 model Restaurant {
   id        String    @id @default(cuid()) @map("id")
   name      String
-  address  String
-  cuisine   Cuisine   @relation(fields: [cuisineId], references: [id])
-  cuisineId String
+  address   String
+  cuisine   Cuisine?   @relation(fields: [cuisineId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  cuisineId String?
   isActive  Boolean   @default(false)
   createAt  DateTime? @default(now())
   updateAt  DateTime? @updatedAt()
   deleteAt  DateTime?
 
-  owner     User       @relation(fields: [ownerId], references: [id])
-  ownerId   String
+  owner     User?      @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ownerId   String?
   menuItems MenuItem[]
   review    Review[]
+
+  @@index([ownerId, id])
 }
 
 model Cuisine {
@@ -46,7 +50,7 @@ model MenuItem {
   id           String     @id @default(cuid()) @map("id")
   name         String
   price        Float
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   restaurantId String
 }
 
@@ -54,8 +58,8 @@ model Review {
   id           String     @id @default(cuid()) @map("id")
   rating       String
   comment      String
-  user         User       @relation(fields: [userId], references: [id])
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId       String
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   restaurantId String
 }

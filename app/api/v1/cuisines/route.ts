@@ -1,5 +1,5 @@
 
-import { createCusine, getAllCusines, updateCusine } from "@/lib/cuisine-helpers";
+import { createCusine, getAllCusines, getByNameCusine, updateCusine } from "@/lib/cuisine-helpers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -15,9 +15,21 @@ export async function POST(req: NextRequest) {
   try {
     const { body } = await req.json();
     const { name } = body;
+    // console.log(name);
+    const isExist = await getByNameCusine(name)
+    if(isExist){
+      console.error(isExist);
+      const errorResponse = {
+        error: "Already exist",
+        status: 403,
+        data : {...isExist}
+      }
+      return NextResponse.json(errorResponse, { status: 403 });
+    }
     const res = await createCusine(name);
     return NextResponse.json(res, { status: 201 });
   } catch (error) {
+    console.error(error);
     return new NextResponse("ERROR_CREATE_Cuisine", { status: 503 });
   }
 }

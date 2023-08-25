@@ -1,23 +1,26 @@
 "use client";
+import { DialogTitle } from "@radix-ui/react-dialog";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
 } from "../ui/dialog";
-import { useModal } from "@/hooks/use-modal";
+import CuisineForm from "./cuisine-form";
+import { useCuisineModal } from "@/hooks/use-cuisine-modal";
 
 
 
-const ResturantModal = () => {
-  const modal = useModal();
+const CuisineModal = () => {
+  const modal = useCuisineModal();
 
   return (
     <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
-      <DialogContent>
+      <DialogContent className="max-w-5xl">
         <DialogHeader>
+          <DialogTitle className="text-2xl font-bold">Create a Cuisine</DialogTitle>
           <DialogDescription className="text-center pt-2 space-y-2 text-zinc-900 font-medium overflow-y-auto">
-              
+              <CuisineForm />
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
@@ -25,4 +28,4 @@ const ResturantModal = () => {
   );
 };
 
-export default ResturantModal;
+export default CuisineModal;
