@@ -78,7 +78,7 @@ const Sidebar = ({ restaurantId }: { restaurantId: string }) => {
     if (!mounted) {
       setMounted(true);
     }
-  }, []);
+  }, [mounted]);
 
   if (!mounted) {
     return null;

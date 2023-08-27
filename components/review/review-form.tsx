@@ -35,7 +35,16 @@ export default function ReviewForm() {
   if (!userId) {
     redirect("/sign-in");
   }
-
+  const form = useForm<z.infer<typeof reviewSchema>>({
+    resolver: zodResolver(reviewSchema),
+    defaultValues: {
+      restaurantId: modal.restaurantId ?? "",
+      rating: `${data?.rating}`,
+      userId: data?.userId,
+      comment: `${data?.comment}`,
+    },
+  });
+  
   useEffect(() => {
     async function getByIdReview() {
       const response = await axios.get(
@@ -48,17 +57,9 @@ export default function ReviewForm() {
       setRating(response.data.rating);
     }
     getByIdReview();
-  }, [setData]);
+  }, [form, modal.reviewId, setData]);
 
-  const form = useForm<z.infer<typeof reviewSchema>>({
-    resolver: zodResolver(reviewSchema),
-    defaultValues: {
-      restaurantId: modal.restaurantId ?? "",
-      rating: `${data?.rating}`,
-      userId: data?.userId,
-      comment: `${data?.comment}`,
-    },
-  });
+ 
   // const isLoading = form.formState.isSubmitting;
   const onSubmitReviewDetails = async (
     values: z.infer<typeof reviewSchema>
