@@ -1,9 +1,19 @@
 import CardFeature from "@/components/resturants/CardFeature";
 import { BarChart } from "@/components/resturants/bar-chart";
+import {
+  getLastSixUsersWithOrders,
+  getSalesCount,
+  getTotalRevenue,
+} from "@/lib/dashboard-helper";
+import { convertIntCurrency } from "@/lib/utils";
+import { User } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 
-export default function ResturantPage() {
+export default async function ResturantPage() {
+  const salesCount = await getSalesCount();
+  const lastSixUsersWithOrders = await getLastSixUsersWithOrders();
+  console.log(lastSixUsersWithOrders);
   return (
     <div className="flex flex-col h-full overflow-hidden sm:flex sm:flex-col">
       <CardFeature className="h-1/4 overflow-y-auto" />
@@ -11,7 +21,7 @@ export default function ResturantPage() {
         <div className="rounded-xl border bg-card text-card-foreground shadow col-span-4">
           <div className="flex flex-col space-y-1.5 p-6">
             <h3 className="font-semibold leading-none tracking-tight">
-              Overview
+              Orders Overview
             </h3>
           </div>
           <div className="p-4 pt-0 pl-2">
@@ -27,51 +37,57 @@ export default function ResturantPage() {
               Recent Sales
             </h3>
             <p className="text-sm text-muted-foreground">
-              You made 265 sales this month.
+              You made {salesCount} sales this month.
             </p>
           </div>
           <div className="p-6 pt-0">
             <div className="space-y-8">
-              <div className="flex items-center">
-                <span className="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
-                  <Image
-                    width={100}
-                    height={100}
-                    className="aspect-square h-full w-full"
-                    alt="Avatar"
-                    src="/placeholder.png"
-                  />
-                </span>
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    Olivia Martin
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    olivia.martin@email.com
-                  </p>
+              {lastSixUsersWithOrders.map((user: any) => (
+                <div key={user.id} className="flex items-center">
+                  <span className="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
+                    <Image
+                      width={100}
+                      height={100}
+                      className="aspect-square h-full w-full"
+                      alt="Avatar"
+                      src="/placeholder.png"
+                    />
+                  </span>
+                  <div className="ml-4 space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                      {user.name}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {user.email}
+                    </p>
+                  </div>
+                  <div className="ml-auto font-medium">
+                    {convertIntCurrency(user.orders[0].totalAmount)}
+                  </div>
                 </div>
-                <div className="ml-auto font-medium">+$1,999.00</div>
-              </div>
-              <div className="flex items-center">
-                <span className="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
-                  <Image
-                    width={100}
-                    height={100}
-                    className="aspect-square h-full w-full"
-                    alt="Avatar"
-                    src="/placeholder.png"
-                  />
-                </span>
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    Olivia Martin
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    olivia.martin@email.com
-                  </p>
+              ))}
+              {lastSixUsersWithOrders.length == 0 && (
+                <div className="flex items-center">
+                  <span className="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
+                    <Image
+                      width={100}
+                      height={100}
+                      className="aspect-square h-full w-full"
+                      alt="Avatar"
+                      src="/placeholder.png"
+                    />
+                  </span>
+                  <div className="ml-4 space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                     User Name
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      abc@example.com
+                    </p>
+                  </div>
+                  <div className="ml-auto font-medium">+$1,999.00</div>
                 </div>
-                <div className="ml-auto font-medium">+$1,999.00</div>
-              </div>
+              )}
             </div>
           </div>
         </div>

@@ -12,8 +12,6 @@ export default async function OrderPage({
   params: { restaurantId: string };
 }) {
   const { userId, sessionId, getToken } = auth();
-  console.log("user id ", userId);
-
   if (!userId) {
     redirect("/sign-in");
   }
@@ -21,6 +19,10 @@ export default async function OrderPage({
   const menus = await prismadb.order.findMany({
     where: {
       restaurantId: params.restaurantId,
+      createAt: {
+        lte: format(new Date(),"yyyy-MM-dd'T'23:59:59'Z'"),
+        gte:  format(new Date(),  "yyyy-MM-dd'T'00:00:00'Z'"),
+      }
     },
     include: {
       restaurant: true,
@@ -28,6 +30,9 @@ export default async function OrderPage({
       Transaction: true,
       user: true,
     },
+    orderBy : {
+      createAt: 'desc'
+    }
   });
 
   const formattedMenus: OrderColumn[] = menus.map((item) => ({
@@ -42,8 +47,6 @@ export default async function OrderPage({
     createAt: format(item?.createAt ?? 0, "MMMM dd, yyyy"),
     updateAt: format(item?.updateAt ?? 0, "MMMM dd, yyyy"),
   }));
-
-  console.log(formattedMenus);
 
   return (
     <div className="flex flex-col md:pt-2">

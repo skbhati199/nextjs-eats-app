@@ -1,19 +1,23 @@
 import { OrderStatus } from "@prisma/client";
 import prismadb from "./prismadb";
 
-
-
 // Create a new order
 async function createOrder(
   userId: string,
-  restaurantId:string,
-  menuItemId:string,
+  restaurantId: string,
+  menuItemId: string,
+  price: number,
+  gst: number,
+  totalAmount: number
 ) {
   return prismadb.order.create({
     data: {
       userId,
       restaurantId,
       menuItemId,
+      price,
+      gst,
+      totalAmount,
     },
   });
 }
@@ -22,8 +26,8 @@ async function createOrder(
 async function updateOrder(
   id: string,
   userId: string,
-  menuItemId:string,
-  restaurantId:string,
+  menuItemId: string,
+  restaurantId: string,
   orderStatus: OrderStatus
 ) {
   return prismadb.order.update({
@@ -34,7 +38,7 @@ async function updateOrder(
       userId,
       restaurantId,
       menuItemId,
-      orderStatus
+      orderStatus,
     },
   });
 }
@@ -46,8 +50,6 @@ async function getByIdOrder(id: string) {
 async function getByRestaurantOrder(restaurantId: string) {
   return prismadb.order.findMany({ where: { restaurantId: restaurantId } });
 }
-
-
 
 // Fetch all restaurants
 async function getAllOrders() {

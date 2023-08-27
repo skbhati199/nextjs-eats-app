@@ -14,10 +14,7 @@ export default async function DashBoardPage() {
   console.log(userId);
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_APP_URL}/api/getRestaurantsByOwnerId/${userId}`,);
-
   const results = await response.data;
-
-  console.log(results);
 
   return (
     <div>

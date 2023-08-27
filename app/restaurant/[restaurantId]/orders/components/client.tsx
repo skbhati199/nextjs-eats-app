@@ -48,6 +48,8 @@ export const OrdersClient: React.FC<OrdersClientProps> = ({
       if (menuResults) {
         for (const menuItem of menuResults) {
           console.log(menuItem);
+          const gst = menuItem.price * 0.18;
+          const totalAmount = gst + menuItem.price
           const response = await axios.post(
             `${process.env.NEXT_PUBLIC_APP_URL}/api/orders`,
             {
@@ -55,6 +57,9 @@ export const OrdersClient: React.FC<OrdersClientProps> = ({
                 userId,
                 restaurantId,
                 menuItemId: menuItem.id,
+                price: menuItem.price,
+                gst: gst,
+                totalAmount
               },
             }
           );

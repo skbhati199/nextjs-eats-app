@@ -19,9 +19,9 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const { body } = await req.json();
-    const { userId, restaurantId, menuItemId } = body;
+    const { userId, restaurantId, menuItemId, price, gst, totalAmount } = body;
 
-    const res = await createOrder(userId, restaurantId, menuItemId);
+    const res = await createOrder(userId, restaurantId, menuItemId, price, gst, totalAmount);
     return NextResponse.json(res, { status: 201 });
   } catch (error) {
     console.error(error);
