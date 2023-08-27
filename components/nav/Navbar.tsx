@@ -34,7 +34,7 @@ const Navbar = async ({ restaurantId }: { restaurantId: string }) => {
     >
       <div className="flex items-center">
         <MobileSidebar restaurantId={restaurantId} />
-        <ResturantSwitcher items={restaurants} className="text-white" />
+        <ResturantSwitcher items={restaurants} />
        
       </div>
       <div className="flex items-center gap-x-4">

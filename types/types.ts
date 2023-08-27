@@ -11,42 +11,11 @@ export const cuisineDetailsSchema = z.object({
   name: z.string(),
 });
 
-// export const bussinessAddressSchema = z.object({
-//   address: z.string().optional(),
-//   contactNumber: z.string().optional(),
-//   contactCountryCode: z.string().optional(),
-//   city: z.string().optional(),
-//   state: z.string().optional(),
-//   country: z.string().optional(),
-// });
-
-// export const buinsessDocumentSchema = z.object({
-//   certificateId: z.string(),
-//   buinsessDocuments: z.array(z.string()).optional(),
-// });
-
-// export const siteSchema = z.object({
-//   orgId: z.string(),
-//   name: z.string(),
-//   phoneNumberWithCode: z.string(),
-//   site: z.string().optional(),
-//   site_area: z.string().optional(),
-//   location: z.string().optional(),
-//   price: z.string().optional(),
-//   min_power: z.string().optional(),
-//   max_power: z.string().optional(),
-// });
-
-// export const chargePointSchema = z.object({
-//   orgId: z.string(),
-//   siteId: z.string(),
-//   chargePointHardwareId: z.string(),
-//   chargePointName: z.string(),
-//   instantPower: z.string(),
-//   status: z.string().optional(),
-//   power: z.string().optional(),
-//   publicValue: z.boolean().default(false),
-// });
+export const menuSchema = z.object({
+  restaurantId:z.string(),
+  name: z.string(),
+  price: z.string(),
+});
 
 // export enum UserRole {
 //   USER = "user",
@@ -70,15 +39,19 @@ export const cuisineDetailsSchema = z.object({
 // });
 
 export interface ResturantModel {
-  id: "",
-  name: "",
-  address: "",
-  cuisineId: "",
-  ownerId: "",
+  id: "";
+  name: "";
+  address: "";
+  cuisineId: "";
+  ownerId: "";
 }
 
-
 export interface CuisineModel {
-  id: "",
-  name: "",
+  id: "";
+  name: "";
+}
+export interface MenuModel {
+  id: "";
+  name: "";
+  price: 0;
 }

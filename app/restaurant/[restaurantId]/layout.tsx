@@ -1,3 +1,4 @@
+import { ModalProvider } from "@/components/modals/modal-provider";
 import Navbar from "@/components/nav/Navbar";
 import Sidebar from "@/components/sidebar/Sidebar";
 import React from "react";
@@ -17,7 +18,11 @@ export default function ResturantLayout({
 
       <main className="md:pl-44 pb-10">
         <Navbar restaurantId={params.restaurantId} />
-        <main className="mt-8 mx-4">{children}</main>
+
+        <main className="mt-8 mx-4">
+          <ModalProvider />
+          {children}
+        </main>
       </main>
     </div>
   );

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import CuisineModal from "../cuisine/cuisine-modal";
 import ResturantModal from "../resturants/resturant-modal";
+import MenuModal from "../menu/menu-modal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -17,6 +18,7 @@ export const ModalProvider = () => {
 
   return (
     <>
+      <MenuModal />
       <CuisineModal />
       <ResturantModal />
     </>

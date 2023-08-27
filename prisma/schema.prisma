@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
@@ -50,7 +49,7 @@ model Cuisine {
 model MenuItem {
   id           String     @id @default(cuid()) @map("id")
   name         String
-  price        Float
+  price        Float      @default(0.0)
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   restaurantId String
 }

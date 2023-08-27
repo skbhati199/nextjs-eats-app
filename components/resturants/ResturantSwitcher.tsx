@@ -64,7 +64,7 @@ export default function ResturantSwitcher({
           aria-expanded={open}
           aria-label="Select a restaurant"
           className={cn(
-            `w-48 lg:w-64 h-12 justify-between 
+            `w-48 lg:w-96 h-12 justify-between 
             dark:text-white 
             text-slate-500 
             hover:text-slate-700 
@@ -73,11 +73,11 @@ export default function ResturantSwitcher({
           )}
         >
           <Building2 className="mr-2 h-4 w-4" />
-          {currentResturant?.name && "Select Resturant"}
+          {currentResturant?.name ? currentResturant?.name  : "Select Resturant"}
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-48 lg:w-64  p-0">
+      <PopoverContent className="w-48 lg:w-96  p-0">
         <Command>
           <CommandList>
             <CommandInput placeholder="Search restaurant..." />
@@ -87,7 +87,7 @@ export default function ResturantSwitcher({
                 <CommandItem
                   key={restaurant.id}
                   onSelect={() => onResturantSelect(restaurant)}
-                  className="text-xl"
+                  className="text-md"
                 >
                   <Building2 className="mr-2 h-4 w-4" />
                   {restaurant.name}
