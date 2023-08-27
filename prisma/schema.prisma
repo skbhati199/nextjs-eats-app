@@ -11,12 +11,14 @@ datasource db {
 }
 
 model User {
-  id          String       @id @default(cuid()) @map("id")
-  email       String       @unique
-  password    String
-  name        String
-  restaurants Restaurant[]
-  review      Review[]
+  id           String        @id @default(cuid()) @map("id")
+  email        String        @unique
+  password     String
+  name         String
+  restaurants  Restaurant[]
+  reviews      Review[]
+  orders       Order[]
+  transactions Transaction[]
 
   @@index([id])
 }
@@ -32,10 +34,12 @@ model Restaurant {
   updateAt  DateTime? @updatedAt()
   deleteAt  DateTime?
 
-  owner     User?      @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  ownerId   String?
-  menuItems MenuItem[]
-  review    Review[]
+  owner        User?         @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ownerId      String?
+  menuItems    MenuItem[]
+  reviews      Review[]
+  orders       Order[]
+  transactions Transaction[]
 
   @@index([ownerId, id])
 }
@@ -52,6 +56,7 @@ model MenuItem {
   price        Float      @default(0.0)
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   restaurantId String
+  order        Order[]
 }
 
 model Review {
@@ -62,4 +67,46 @@ model Review {
   userId       String
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   restaurantId String
+}
+
+model Order {
+  id           String     @id @default(cuid()) @map("id")
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId       String
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  restaurantId String?
+
+  menuItem      MenuItem?     @relation(fields: [menuItemId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  menuItemId    String?
+  Transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  transactionId String?      @unique
+  orderStatus   OrderStatus  @default(PENDING)
+  createAt      DateTime?    @default(now())
+  updateAt      DateTime?    @updatedAt()
+}
+
+model Transaction {
+  id           String            @id @default(cuid()) @map("id")
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId       String
+  restaurant   Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  restaurantId String
+  order        Order?
+  status       TransactionStatus @default(PENDING)
+  createAt     DateTime?         @default(now())
+  updateAt     DateTime?         @updatedAt()
+}
+
+enum OrderStatus {
+  PENDING
+  PREPRING
+  DELIVERY
+  COMPLETED
+  REJECTED
+}
+
+enum TransactionStatus {
+  COMPLETED
+  PENDING
+  FAILED
 }

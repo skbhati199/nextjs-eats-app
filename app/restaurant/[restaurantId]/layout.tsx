@@ -19,7 +19,7 @@ export default function ResturantLayout({
       <main className="md:pl-44 pb-10">
         <Navbar restaurantId={params.restaurantId} />
 
-        <main className="mt-8 mx-4">
+        <main className="mt-2 mx-4">
           <ModalProvider />
           {children}
         </main>
