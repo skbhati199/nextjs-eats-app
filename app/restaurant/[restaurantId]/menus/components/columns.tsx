@@ -7,7 +7,7 @@ import { CellAction } from "./cell-action"
 export type MenuColumn = {
   id: string
   name: string;
-  price: number;
+  price: string;
   restaurant: string;
 }
 

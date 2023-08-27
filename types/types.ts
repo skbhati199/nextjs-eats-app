@@ -17,6 +17,15 @@ export const menuSchema = z.object({
   price: z.string(),
 });
 
+
+export const reviewSchema = z.object({
+  userId:z.string(),
+  restaurantId:z.string(),
+  rating: z.string(),
+  comment: z.string(),
+});
+
+
 // export enum UserRole {
 //   USER = "user",
 //   OPERATOR = "operator",

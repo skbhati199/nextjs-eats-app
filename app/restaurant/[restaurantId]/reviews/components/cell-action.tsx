@@ -15,29 +15,31 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 
-import { MenuColumn } from "./columns";
+import { ReviewColumn } from "./columns";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
+import { useReviewModal } from "@/hooks/use-review-modal";
 
 interface CellActionProps {
-  data: MenuColumn;
+  data: ReviewColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({
   data,
 }) => {
+  
+  const updateReviewModel = useReviewModal();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const params = useParams();
   const pathName = usePathname()
 
   const onConfirm = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/menu/${data.id}`);
+      await axios.delete(`/api/review/${data.id}`);
       toast({
-        title: "Successfully deleted Menu item",
+        title: "Successfully deleted Review item",
       });
       router.refresh();
     } catch (error) {
@@ -50,13 +52,6 @@ export const CellAction: React.FC<CellActionProps> = ({
     }
   };
 
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id);
-    toast({
-      title: "Menu ID copied to clipboard.",
-    });
-  }
-
   return (
     <>
       <AlertModal 
@@ -68,19 +63,19 @@ export const CellAction: React.FC<CellActionProps> = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">Open review</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            asChild
-          >
-            <Link href={`${process.env.NEXT_PUBLIC_APP_URL}${pathName}/${data.id}/view`}><ViewIcon className="mr-2 h-4 w-4" /> View</Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => router.push(`/${params.restaurantId}/menu/${data.id}/edit`)}
+            onClick={() => {
+              console.log(data.id)
+              updateReviewModel.setReview(data.id);
+              updateReviewModel.setRestaurantId(data.restaurantId);
+              updateReviewModel.onOpen();
+            }}
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>

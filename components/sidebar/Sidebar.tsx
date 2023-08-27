@@ -66,6 +66,12 @@ const Sidebar = ({ restaurantId }: { restaurantId: string }) => {
       href: `/restaurant/${restaurantId}/tracking`,
       color: "text-red-500",
     },
+    {
+      label: "Reviews",
+      icon: FolderOpenDot,
+      href: `/restaurant/${restaurantId}/reviews`,
+      color: "text-oragne-500",
+    },
   ];
 
   useEffect(() => {

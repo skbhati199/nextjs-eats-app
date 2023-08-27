@@ -20,7 +20,7 @@ export async function createReview(
   });
 
   if (!existingResturant) {
-    throw new Error(`review with id ${restaurantId} does not exist.`);
+    throw new Error(`Restaurant with id ${restaurantId} does not exist.`);
   }
 
   return await prismadb.review.create({
@@ -55,7 +55,7 @@ export async function updateReview(
 }
 
 export async function getByIdReview(id: string) {
-  return await prismadb.review.findUnique({ where: { id: id } });
+  return await prismadb.review.findUnique({ where: { id: id }, });
 }
 
 export async function getByUserIdReview(userId: string) {

@@ -1,0 +1,16 @@
+.rating {
+    display: inline-block;
+    font-size: 48px;
+    cursor: pointer;
+  }
+  
+  .star {
+    color: gray;
+    transition: color 0.2s;
+    margin-right: 8px;
+  }
+  
+  .filled {
+    color: gold;
+  }
+  
