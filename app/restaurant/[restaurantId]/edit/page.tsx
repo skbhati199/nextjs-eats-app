@@ -19,7 +19,12 @@ export default async function EditPage({
     where: {
       id: params.restaurantId,
     },
+    include: {
+      cuisine: true
+    }
   });
+
+  console.log(response?.cuisine);
 
   if (!response) {
     redirect("/dashboard");
@@ -27,7 +32,6 @@ export default async function EditPage({
 
   return (
     <CardEditContainer title={`Edit Restaurant: ${response.name}`}>
-      <div>Edit Page</div>
       <ResturantForm isEdit={true} data={response} />
     </CardEditContainer>
   )

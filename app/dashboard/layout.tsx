@@ -19,7 +19,7 @@ export default async function DashboardLayout({
   const restaurants = await prismadb.restaurant.findMany({
     where: {
       ownerId: userId,
-    }
+    },
   });
   return (
     <div className="h-full relative">

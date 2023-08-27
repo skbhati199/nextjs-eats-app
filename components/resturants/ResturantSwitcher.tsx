@@ -49,31 +49,35 @@ export default function ResturantSwitcher({
 
   const [open, setOpen] = React.useState(false);
 
-  const onResturantSelect = (restaurant: {
-    id: string;
-    name: string;
-  }) => {
+  const onResturantSelect = (restaurant: { id: string; name: string }) => {
     setOpen(false);
     router.push(`/restaurant/${restaurant.id}`);
   };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild className="dark:text-white">
         <Button
           variant="outline"
-          size="sm"
+          size="lg"
           role="combobox"
           aria-expanded={open}
           aria-label="Select a restaurant"
-          className={cn("md:w-48 lg:w-64 w-32 h-10 justify-between", className)}
+          className={cn(
+            `w-48 lg:w-64 h-12 justify-between 
+            dark:text-white 
+            text-slate-500 
+            hover:text-slate-700 
+            dark:hover:text-slate-100`,
+            className
+          )}
         >
           <Building2 className="mr-2 h-4 w-4" />
-          {currentResturant?.name}
+          {currentResturant?.name && "Select Resturant"}
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="md:w-48 lg:w-64 w-32 p-0">
+      <PopoverContent className="w-48 lg:w-64  p-0">
         <Command>
           <CommandList>
             <CommandInput placeholder="Search restaurant..." />
@@ -83,7 +87,7 @@ export default function ResturantSwitcher({
                 <CommandItem
                   key={restaurant.id}
                   onSelect={() => onResturantSelect(restaurant)}
-                  className="text-sm"
+                  className="text-xl"
                 >
                   <Building2 className="mr-2 h-4 w-4" />
                   {restaurant.name}
@@ -92,7 +96,7 @@ export default function ResturantSwitcher({
                       "ml-auto h-4 w-4",
                       currentResturant?.id === restaurant.id
                         ? "opacity-100"
-                        : "opacity-0"
+                        : "opacity-50"
                     )}
                   />
                 </CommandItem>

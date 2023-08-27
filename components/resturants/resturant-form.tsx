@@ -110,7 +110,7 @@ export default function ResturantForm({
                 <Input
                   className="border outline-none dark:text-white/100
                     focus-visible:ring-0 
-                    focus-visible:ring-transparent"
+                    focus-visible:ring-transparent pl-2 text-lg "
                   disabled={isLoading}
                   placeholder="Name"
                   {...field}
@@ -128,7 +128,7 @@ export default function ResturantForm({
                 <Input
                   className="border outline-none dark:text-white/100
                     focus-visible:ring-0 
-                    focus-visible:ring-transparent"
+                    focus-visible:ring-transparent pl-2 text-lg"
                   disabled={isLoading}
                   placeholder="Address"
                   {...field}
@@ -139,10 +139,11 @@ export default function ResturantForm({
         />
 
         <div className="flex flex-col justify-start items-start">
-          <h2>Select Cuisine</h2>
+          <h2 className="text-muted-foreground">Select Cuisine</h2>
           <CuisineFilter
-            className="max-w-4xl"
+            className="max-w-4xl dark:text-white/100  mt-2"
             onFilterChange={onFilterChange}
+            cuisineId={data?.cuisineId ?? ""}
           />
         </div>
         <Button

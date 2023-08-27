@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "webhook":"ngrok http --domain=pure-mongrel-growing.ngrok-free.app 3000",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

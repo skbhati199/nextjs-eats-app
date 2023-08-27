@@ -11,6 +11,15 @@ services:
       - '5432:5432'
     volumes: 
       - db:/var/lib/postgresql/data
+  # webhook:
+  #   image: ngrok/ngrok
+  #   environment:
+  #     - NGROK_AUTHTOKEN=1tzbhRNKB7pYxhhI5pcK3qovUfq_2EQGCkdCE8vSek2T9etVu
+  #   command: 'http 3000'
 volumes:
   db:
     driver: local
+
+networks:
+  my_network:
+    driver: bridge

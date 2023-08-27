@@ -6,6 +6,8 @@ import React from "react";
 import PageHeader from "./components/page-header";
 import axios from "axios";
 import { auth } from "@clerk/nextjs";
+import { Restaurant } from "@prisma/client";
+import RestaurantCard from "@/components/resturants/resturant-card";
 
 export default async function DashBoardPage() {
   const { userId } = auth();
@@ -21,7 +23,11 @@ export default async function DashBoardPage() {
     <div>
       <PageHeader results={results} />
       <Separator />
-      <div className="sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5"></div>
+      <div className="sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+        {
+          results.map((item : Restaurant)=> (<RestaurantCard key={item.id} data={item} />))
+        }
+      </div>
     </div>
   );
 }

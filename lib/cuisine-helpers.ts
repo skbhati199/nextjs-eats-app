@@ -1,8 +1,6 @@
 import prismadb from "./prismadb";
 
-// import { withAccelerate } from '@prisma/extension-accelerate';
 
-// const prismadb = prismadb.$extends(withAccelerate())
 
 // Create a new cuisine
 async function createCusine(

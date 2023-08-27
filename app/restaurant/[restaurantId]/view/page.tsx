@@ -20,6 +20,9 @@ export default async function ResturantDetailsPage({
     where: {
       id: params.restaurantId,
     },
+    include:{
+      cuisine: true
+    }
   });
 
   if (!response) {

@@ -7,7 +7,7 @@ import {
   DialogHeader,
 } from "../ui/dialog";
 import { useModal } from "@/hooks/use-modal";
-import ResturantForm from "./restaurant-form";
+import ResturantForm from "./resturant-form";
 
 
 
@@ -16,7 +16,7 @@ const ResturantModal = () => {
 
   return (
     <Dialog open={modal.isOpen} onOpenChange={modal.onClose}>
-      <DialogContent className="max-w-5xl">
+      <DialogContent className="lg:max-w-4xl md:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold">Create a Resturant</DialogTitle>
           <DialogDescription className="text-center pt-2 space-y-2 text-zinc-900 font-medium overflow-y-auto">

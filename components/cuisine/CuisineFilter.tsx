@@ -30,20 +30,23 @@ type PopoverTriggerProps = React.ComponentPropsWithoutRef<
 
 interface CuisineSwitcherProps extends PopoverTriggerProps {
   onFilterChange: (value: Cuisine) => void;
+  cuisineId?:string | undefined
 }
 
-function CuisineFilter({ className, onFilterChange }: CuisineSwitcherProps) {
+function CuisineFilter({ className, onFilterChange, cuisineId }: CuisineSwitcherProps) {
   const [cuisines, setCuisines] = useState<Cuisine[]>([]);
   const [selectedCuisine, setSelectedCuisine] = useState<Cuisine>();
 
   const model = useCuisineModal();
 
   useEffect(() => {
-    console.log("loading ")
+    console.log("loading ");
     async function fetchCuisines() {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_APP_URL}/api/cuisines`);
-        console.log(response.data)
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_APP_URL}/api/cuisines`
+        );
+        console.log(response.data);
         setCuisines(response.data);
       } catch (error) {
         console.error("Error fetching cuisines:", error);
@@ -53,10 +56,8 @@ function CuisineFilter({ className, onFilterChange }: CuisineSwitcherProps) {
     fetchCuisines();
   }, []);
 
- 
-
   const currentCuisine = cuisines.find(
-    (item) => item.id === selectedCuisine?.id
+    (item) => cuisineId ? cuisineId : item.id === selectedCuisine?.id
   );
 
   const [open, setOpen] = useState(false);
@@ -79,7 +80,7 @@ function CuisineFilter({ className, onFilterChange }: CuisineSwitcherProps) {
           className={cn("md:w-48 lg:w-64 w-32 h-10 justify-between", className)}
         >
           <Building2 className="mr-2 h-4 w-4" />
-          {currentCuisine?.name}
+          {currentCuisine?.name ? currentCuisine?.name : "Select a cuisine"}
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
