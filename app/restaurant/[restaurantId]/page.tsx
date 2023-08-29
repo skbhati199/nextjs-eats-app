@@ -1,12 +1,10 @@
 import CardFeature from "@/components/resturants/CardFeature";
-import { BarChart } from "@/components/resturants/bar-chart";
+import { BarChart2 } from "@/components/resturants/bar-chart-2";
 import {
   getLastSixUsersWithOrders,
   getSalesCount,
-  getTotalRevenue,
 } from "@/lib/dashboard-helper";
 import { convertIntCurrency } from "@/lib/utils";
-import { User } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 
@@ -26,7 +24,8 @@ export default async function ResturantPage() {
           </div>
           <div className="p-4 pt-0 pl-2">
             <div className="recharts-responsive-container">
-              <BarChart />
+              {/* <BarChart /> */}
+              <BarChart2 />
             </div>
           </div>
         </div>
