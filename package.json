@@ -2,7 +2,6 @@
   "name": "nextjs-eats-app",
   "version": "0.1.0",
   "private": true,
-  "type": "commonjs",
   "scripts": {
     "webhook": "ngrok http --domain=pure-mongrel-growing.ngrok-free.app 3000",
     "dev": "next dev",

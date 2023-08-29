@@ -1,7 +1,6 @@
 import AppLogoText from "@/components/logo/app-logo";
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {

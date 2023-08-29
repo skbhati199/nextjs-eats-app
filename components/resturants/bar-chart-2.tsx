@@ -2,18 +2,26 @@
 
 import React, { useEffect, useState } from "react";
 // @ts-ignore
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Tooltip,
-} from "chart.js";
+// import {
+//   Chart as ChartJS,
+//   CategoryScale,
+//   LinearScale,
+//   BarElement,
+//   Tooltip,
+// } from "chart.js";
+import("chart.js").then((module) => {
+  const Chart = module.Chart;
+  const CategoryScale = module.CategoryScale;
+  const LinearScale = module.LinearScale;
+  const Tooltip = module.Tooltip;
+  const BarElement = module.BarElement;
+
+  Chart.register(CategoryScale, LinearScale, BarElement, Tooltip);
+  // Rest of your code...
+});
 // @ts-ignore
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 export const options = {
   responsive: true,
