@@ -60,7 +60,7 @@ export async function getByOwnerIdRestaurant(ownerId: string) {
     where: { ownerId: ownerId },
     include: {
       menuItems: true,
-      review: true,
+      reviews: true,
     },
   });
 }
@@ -82,7 +82,7 @@ export async function getAllPublicRestaurants() {
   return await prismadb.restaurant.findMany({
     include: {
       cuisine: true,
-      review: true,
+      reviews: true,
       menuItems: true,
     },
   });

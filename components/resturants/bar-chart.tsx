@@ -7,7 +7,10 @@ import axios from "axios";
 export const BarChart = () => {
   const canvasEl = useRef(null);
 
-  const colors = {
+  
+
+  useEffect(() => {
+    const colors = {
     purple: {
       default: "rgba(149, 76, 233, 1)",
       half: "rgba(149, 76, 233, 0.5)",
@@ -19,8 +22,6 @@ export const BarChart = () => {
       quarter: "rgba(80, 102, 120, 0.25)",
     },
   };
-
-  useEffect(() => {
     async function getBarCharData() {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_APP_URL}/api/bar-chart`
