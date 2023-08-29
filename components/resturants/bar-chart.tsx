@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import { Chart } from "chart.js";
 import axios from "axios";
+
 
 export const BarChart = () => {
   const canvasEl = useRef(null);
@@ -61,7 +62,7 @@ export const BarChart = () => {
           },
         ],
       };
-      const config = {
+      const config: any = {
         type: "line",
         data: data,
       };
