@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const isGithubActions = process.env.GITHUB_ACTIONS || false;
+const nextConfig = {
+    output: isGithubActions ? "export" : undefined,
+}
 
 module.exports = nextConfig
