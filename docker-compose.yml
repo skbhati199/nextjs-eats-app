@@ -1,5 +1,25 @@
 version: '3.9'
 services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    command: npm run start
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: "postgres://postgres:postgres@db:5432/ev-database"
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_c3RpcnJlZC1zbmFrZS02NC5jbGVyay5hY2NvdW50cy5kZXYk
+      CLERK_SECRET_KEY: sk_test_MhuZIznF6GfQuu0KpnDO2Ro8VILroZOlVWT0qrlEws
+      NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
+      NEXT_UBLIC_CLERK_SIGN_UP_URL: /sign-up
+      NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: /
+      NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: /
+      NEXT_PUBLIC_APP_URL: https://home.chargingev.app
   db:
     image: postgres:latest
     restart: always

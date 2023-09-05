@@ -6,7 +6,7 @@
     "webhook": "ngrok http --domain=pure-mongrel-growing.ngrok-free.app 3000",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --port 3001",
     "lint": "next lint",
     "postinstall": "prisma generate"
   },
